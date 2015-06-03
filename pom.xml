@@ -31,8 +31,8 @@
     <name>My App</name>
     <description>My App</description>
 
-    <!--<packaging>jar</packaging>-->
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
+    <!--<packaging>war</packaging>-->
 
     <properties>
         <version.wildfly-swarm>1.0.0.Alpha2-SNAPSHOT</version.wildfly-swarm>
