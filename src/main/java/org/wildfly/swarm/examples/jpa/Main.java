@@ -31,6 +31,10 @@ public class Main {
         JAXRSDeployment deployment = new JAXRSDeployment(container);
         deployment.getArchive().addClasses(Employee.class, DBMigrationInvoker.class);
         deployment.getArchive().addAsWebInfResource(new ClassLoaderAsset("META-INF/persistence.xml", Main.class.getClassLoader()), "classes/META-INF/persistence.xml");
+        deployment.getArchive().addAsWebInfResource(
+                new ClassLoaderAsset("db/migration/V1__create_schema.sql", Main.class.getClassLoader()), "classes/db/migration/V1__create_schema.sql");
+        deployment.getArchive().addAsWebInfResource(
+                new ClassLoaderAsset("db/migration/V1.1__import_initial_data.sql", Main.class.getClassLoader()), "classes/db/migration/V1.1__import_initial_data.sql");
         deployment.addResource(EmployeeResource.class);
 
         container.deploy(deployment);
