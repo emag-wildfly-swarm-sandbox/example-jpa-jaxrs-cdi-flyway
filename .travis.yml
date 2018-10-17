@@ -1,0 +1,37 @@
+notifications:
+  email: false
+
+env:
+  global:
+  - TERM=dumb
+
+language: java
+jdk: - oraclejdk8
+
+addons:
+  apt:
+    packages:
+    - bash
+    - curl
+
+install: true
+before_install:
+- sudo apt-get update -yqq >/dev/null
+- sudo apt-get install -yqq --no-install-suggests --no-install-recommends
+  tree jq python-pip curl bash sudo >/dev/null
+#
+- source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
+
+script:
+- export root=$(pwd)
+#
+- ./mvnw clean package >/dev/null
+- ./target/*-swarm.jar &
+- wait_for 8080
+- http :8080/
+- stop_any 8080
+
+cache:
+  directories:
+  - $HOME/.m2
+
